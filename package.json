@@ -2,7 +2,7 @@
   "private": false,
   "name": "@megabytelabs/docker-ci-docker-test",
   "version": "2.9.2",
-  "description": "A DIND Container for Testing with ContainerStructureTest and GitLab Runner",
+  "description": "A Docker-in-Docker container for testing with ContainerStructureTest and GitLab Runner",
   "license": "MIT",
   "author": "Brian Zalewski <brian@megabyte.space> (https://megabyte.space)",
   "homepage": "https://megabyte.space",
@@ -47,13 +47,13 @@
   "dependencies": {},
   "optionalDependencies": {},
   "devDependencies": {
+    "@commitlint/config-conventional": "latest",
     "eslint-config-strict-mode": "latest",
     "git-cz-emoji": "latest",
+    "handlebars-helpers": "latest",
     "prettier-config-sexy-mode": "latest",
     "semantic-release-config": "latest",
-    "typescript": "^4.5.5",
-    "@commitlint/config-conventional": "latest",
-    "handlebars-helpers": "latest"
+    "typescript": "^4.5.5"
   },
   "keywords": [
     "ci",
@@ -83,9 +83,15 @@
     "description": "A Docker-in-Docker container for testing with ContainerStructureTest and GitLab Runner",
     "dockerBaseTag": "test",
     "dockerInDocker": "true",
+    "dockerLatestSize": {
+      "test": "105M"
+    },
     "dockerOutputCommand": "docker --version",
     "dockerSlimCommand": {
       "test": "--http-probe=false --exec 'jq --version && docker build --rm .' --mount \"$PWD/test/output-sample:/work\" --workdir '/work' --preserve-path-file 'local/paths.txt'"
+    },
+    "dockerSlimSize": {
+      "test": "100M"
     },
     "github_id": "R_kgDOHDRXCA",
     "gitlab_group_id": "11679983",
@@ -99,13 +105,7 @@
     },
     "slug": "docker-test",
     "subgroup": "ci-pipeline",
-    "title": "Docker Test Suite",
-    "dockerSlimSize": {
-      "test": "100M"
-    },
-    "dockerLatestSize": {
-      "test": "105M"
-    }
+    "title": "Docker Test Suite"
   },
   "changelog": {
     "displayTypes": [
@@ -118,7 +118,9 @@
     "showAuthor": true
   },
   "commitlint": {
-    "extends": [],
+    "extends": [
+      "@commitlint/config-conventional"
+    ],
     "helpUrl": "https://megabyte.space/docs/contributing/commits"
   },
   "engine": "node >= 0.12.4",
@@ -143,6 +145,73 @@
   "jscpd": {
     "gitignore": true,
     "threshold": 0.1
+  },
+  "lint-staged": {
+    "(Brewfile|composer.lock|Gemfile|Gopkg.lock|Pipfile.lock)": [
+      "task fix:prettier --"
+    ],
+    "**/!(logo).(jpg|png)": [
+      "task image:compress --"
+    ],
+    "**/*": [
+      "task lint:any --"
+    ],
+    "**/*!(template).(json|webapp|webmanifest)": [
+      "task fix:json --"
+    ],
+    "**/*.(bash|cfg|cgi|command|css|env|env.*|handlebars|hbs|html|less|fcgi|java|md|mdx|mjml|php|phtml|properties|reg|scss|tmpl|tmux|tool|tpl|zsh)": [
+      "task fix:prettier --"
+    ],
+    "**/*.(cjs|js|jsx|mjs|ts|tsx)": [
+      "task fix:js --",
+      "task lint:js --"
+    ],
+    "**/*.(yml|yaml)": [
+      "task fix:yaml --",
+      "task lint:yaml --"
+    ],
+    "**/*.go": [
+      "task fix:go --",
+      "task lint:go --"
+    ],
+    "**/*.md": [
+      "task fix:markdown --",
+      "task lint:spelling:markdown --"
+    ],
+    "**/*.php": [
+      "task fix:php --",
+      "task lint:php --"
+    ],
+    "**/*.py": [
+      "task fix:python --",
+      "task lint:python --"
+    ],
+    "**/*.sh": [
+      "task fix:prettier --",
+      "task fix:shell --",
+      "task lint:shell --"
+    ],
+    "**/*.toml": [
+      "task fix:toml --",
+      "task fix:prettier --",
+      "task lint:toml --"
+    ],
+    "**/*.xml": [
+      "task fix:xml --",
+      "task lint:xml --"
+    ],
+    "Dockerfile": [
+      "task fix:prettier --",
+      "task lint:docker --"
+    ],
+    "Vagrantfile": [
+      "task fix:prettier --",
+      "task lint:vagrant"
+    ],
+    "logo.png": [
+      "task image:resize -- 200 200",
+      "task image:compress --"
+    ]
   },
   "ntl": {
     "descriptions": {

@@ -1,4 +1,4 @@
-FROM docker:20.10
+FROM docker:20.10 AS test
 
 ENV CODECLIMATE_URL="https://github.com/codeclimate/codeclimate/archive/master.tar.gz"
 ENV CONTAINER_STRUCTURE_TEST_URL="https://storage.googleapis.com/container-structure-test/v1.11.0/container-structure-test-linux-amd64"
@@ -8,15 +8,13 @@ WORKDIR /work
 
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 RUN apk --no-cache add \
-    jq=~1 \
-    && curl -L "$CODECLIMATE_URL" | tar xvz \
-    && cd codeclimate-* \
-    && make install \
-    && curl -L --output /usr/local/bin/gitlab-runner "$GITLAB_RUNNER_URL" \
-    && curl -LO "$CONTAINER_STRUCTURE_TEST_URL" \
-    && mv container-structure-test-linux-amd64 container-structure-test \
-    && chmod +x container-structure-test \
-    && mv container-structure-test /usr/local/bin/
+  curl=~7 \
+  jq=~1 \
+  && curl -L --output /usr/local/bin/gitlab-runner "$GITLAB_RUNNER_URL" \
+  && curl -LO "$CONTAINER_STRUCTURE_TEST_URL" \
+  && mv container-structure-test-linux-amd64 container-structure-test \
+  && chmod +x container-structure-test \
+  && mv container-structure-test /usr/local/bin/
 
 ARG BUILD_DATE
 ARG REVISION

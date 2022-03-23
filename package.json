@@ -75,15 +75,19 @@
     "node": ">=14.18.0"
   },
   "publishConfig": {
-    "@megabyte:registry": "https://gitlab.com/api/v4/projects//packages/npm/",
+    "@megabyte:registry": "https://gitlab.com/api/v4/projects/34732406/packages/npm/",
     "access": "public"
   },
   "blueprint": {
     "description": "A DIND Container for Testing with ContainerStructureTest and GitLab Runner",
     "dockerBaseTag": "test",
+    "dockerInDocker": "true",
     "dockerSlimCommand": {
-      "test": "--http-probe=false --exec 'docker run ubuntu || true' --mount \"$PWD/test/output-sample:/work\" --workdir '/work' --preserve-path-file 'local/paths.txt'"
+      "test": "--http-probe=false --exec 'docker build .' --mount \"$PWD/test/output-sample:/work\" --workdir '/work' --preserve-path-file 'local/paths.txt'"
     },
+    "github_id": "R_kgDOHDRXCA",
+    "gitlab_group_id": "11679983",
+    "gitlab_project_id": "34732406",
     "group": "docker",
     "name": "Docker Test",
     "overview": "This project houses a Dockerfile project that generates a slim Docker container used for testing other Docker containers. On top of including Docker-in-Docker (DIND), it also includes several tools that are used to test other Docker container builds in a CI/CD setting. These tools are:\n\n* Google's [ContainerStructureTest](https://github.com/GoogleContainerTools/container-structure-test)\n*[GitLab Runner](https://docs.gitlab.com/runner/)",

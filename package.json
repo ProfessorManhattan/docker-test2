@@ -1,5 +1,84 @@
 {
+  "private": false,
+  "name": "@megabytelabs/docker-ci-docker-test",
+  "version": "2.9.2",
+  "description": "A Docker-in-Docker container for testing with ContainerStructureTest and GitLab Runner",
+  "license": "MIT",
   "author": "Brian Zalewski <brian@megabyte.space> (https://megabyte.space)",
+  "homepage": "https://megabyte.space",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/megabyte-labs/docker-test.git"
+  },
+  "bugs": {
+    "email": "help@megabyte.space",
+    "url": "https://gitlab.com/megabyte-labs/docker/ci-pipeline/docker-test/-/issues"
+  },
+  "type": "commonjs",
+  "main": "dist/main.js",
+  "files": [
+    "bin/",
+    "dist/"
+  ],
+  "scripts": {
+    "prebuild": "mkdir -p bin && task install:gh:task install:gh:yq",
+    "build": "bash start.sh && task docker:build",
+    "bump": "npm run build && npm version patch --no-commit-hooks --no-git-tag-version --force && npm publish",
+    "commit": "bash start.sh && task commit",
+    "fix": "bash start.sh && task fix",
+    "help": "bash start.sh && task --menu",
+    "lint": "bash start.sh && task lint",
+    "preload": "bash start.sh && task preload",
+    "prepare": "bash start.sh && (test -f Taskfile.yml && task npm:prepare) || true",
+    "prepublishOnly": "test -z $SKIP_PREPUB && bash start.sh && task npm:bundle:create || true",
+    "release": "bash start.sh && task publish:semantic-release",
+    "repair": "bash <(curl -sS https://install.doctor/repair)",
+    "start": "test -z $SKIP_NPM_START && bash start.sh || true",
+    "test": "bash start.sh && task docker:test",
+    "unpack": "bash start.sh && task npm:bundle:unpack",
+    "update": "bash start.sh && task update"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/git-cz-emoji"
+    }
+  },
+  "typings": "dist/main.d.ts",
+  "dependencies": {},
+  "optionalDependencies": {},
+  "devDependencies": {
+    "@commitlint/config-conventional": "latest",
+    "eslint-config-strict-mode": "latest",
+    "git-cz-emoji": "latest",
+    "handlebars-helpers": "latest",
+    "prettier-config-sexy-mode": "latest",
+    "semantic-release-config": "latest",
+    "typescript": "^4.5.5"
+  },
+  "keywords": [
+    "ci",
+    "codeclimate",
+    "container",
+    "docker",
+    "dockerfile",
+    "github",
+    "github-actions",
+    "gitlab",
+    "gitlab-ci",
+    "mblabs",
+    "megabytelabs",
+    "pipeline",
+    "professormanhattan",
+    "virtualization",
+    "washingtondc"
+  ],
+  "engines": {
+    "node": ">=14.18.0"
+  },
+  "publishConfig": {
+    "@megabyte:registry": "https://gitlab.com/api/v4/projects/34732406/packages/npm/",
+    "access": "public"
+  },
   "blueprint": {
     "description": "A Docker-in-Docker container for testing with ContainerStructureTest and GitLab Runner",
     "dockerBaseTag": "test",
@@ -28,10 +107,6 @@
     "subgroup": "ci-pipeline",
     "title": "Docker Test Suite"
   },
-  "bugs": {
-    "email": "help@megabyte.space",
-    "url": "https://gitlab.com/megabyte-labs/docker/ci-pipeline/docker-test/-/issues"
-  },
   "changelog": {
     "displayTypes": [
       "feat",
@@ -48,26 +123,7 @@
     ],
     "helpUrl": "https://megabyte.space/docs/contributing/commits"
   },
-  "config": {
-    "commitizen": {
-      "path": "node_modules/git-cz-emoji"
-    }
-  },
-  "dependencies": {},
-  "description": "A Docker-in-Docker container for testing with ContainerStructureTest and GitLab Runner",
-  "devDependencies": {
-    "@commitlint/config-conventional": "latest",
-    "eslint-config-strict-mode": "latest",
-    "git-cz-emoji": "latest",
-    "handlebars-helpers": "latest",
-    "prettier-config-sexy-mode": "latest",
-    "semantic-release-config": "latest",
-    "typescript": "^4.5.5"
-  },
   "engine": "node >= 0.12.4",
-  "engines": {
-    "node": ">=14.18.0"
-  },
   "eslintConfig": {
     "extends": "eslint-config-strict-mode",
     "ignorePatterns": [
@@ -76,13 +132,6 @@
     ],
     "rules": {}
   },
-  "files": [
-    "bin/",
-    "dist/",
-    "CHANGELOG.md",
-    "LICENSE",
-    "README.md"
-  ],
   "funding": [
     {
       "type": "opencollective",
@@ -93,29 +142,10 @@
       "url": "https://www.patreon.com/ProfessorManhattan"
     }
   ],
-  "homepage": "https://megabyte.space",
   "jscpd": {
     "gitignore": true,
     "threshold": 0.1
   },
-  "keywords": [
-    "ci",
-    "codeclimate",
-    "container",
-    "docker",
-    "dockerfile",
-    "github",
-    "github-actions",
-    "gitlab",
-    "gitlab-ci",
-    "mblabs",
-    "megabytelabs",
-    "pipeline",
-    "professormanhattan",
-    "virtualization",
-    "washingtondc"
-  ],
-  "license": "MIT",
   "lint-staged": {
     "(Brewfile|composer.lock|Gemfile|Gopkg.lock|Pipfile.lock)": [
       "task fix:prettier --"
@@ -183,8 +213,6 @@
       "task image:compress --"
     ]
   },
-  "main": "dist/main.js",
-  "name": "@megabytelabs/docker-ci-docker-test",
   "ntl": {
     "descriptions": {
       "build": "Builds the project using the build command specified under scripts in package.json",
@@ -203,7 +231,6 @@
       "update": "Update and refresh the repository with upstream changes and templated parts"
     }
   },
-  "optionalDependencies": {},
   "pnpm": {
     "allowedVersions": {
       "@typescript-eslint/eslint-plugin": "5",
@@ -223,11 +250,6 @@
     }
   },
   "prettier": "prettier-config-sexy-mode",
-  "private": false,
-  "publishConfig": {
-    "@megabyte:registry": "https://gitlab.com/api/v4/projects/34732406/packages/npm/",
-    "access": "public"
-  },
   "release": {
     "branches": [
       "main",
@@ -239,30 +261,5 @@
       }
     ],
     "extends": "semantic-release-config"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/megabyte-labs/docker-test.git"
-  },
-  "scripts": {
-    "build": "bash start.sh && task docker:build",
-    "bump": "npm run build && npm version patch --no-commit-hooks --no-git-tag-version --force && npm publish",
-    "commit": "bash start.sh && task commit",
-    "fix": "bash start.sh && task fix",
-    "help": "bash start.sh && task --menu",
-    "lint": "bash start.sh && task lint",
-    "prebuild": "mkdir -p bin && task install:gh:task install:gh:yq",
-    "preload": "bash start.sh && task preload",
-    "prepare": "bash start.sh && (test -f Taskfile.yml && task npm:prepare) || true",
-    "prepublishOnly": "test -z $SKIP_PREPUB && bash start.sh && task npm:bundle:create || true",
-    "release": "bash start.sh && task publish:semantic-release",
-    "repair": "bash <(curl -sS https://install.doctor/repair)",
-    "start": "test -z $SKIP_NPM_START && bash start.sh || true",
-    "test": "bash start.sh && task docker:test",
-    "unpack": "bash start.sh && task npm:bundle:unpack",
-    "update": "bash start.sh && task update"
-  },
-  "type": "commonjs",
-  "typings": "dist/main.d.ts",
-  "version": "2.9.2"
+  }
 }

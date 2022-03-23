@@ -88,7 +88,7 @@
     },
     "dockerOutputCommand": "docker --version",
     "dockerSlimCommand": {
-      "test": "--http-probe=false --exec 'jq --version && docker build --rm .' --mount \"$PWD/test/output-sample:/work\" --workdir '/work' --preserve-path-file 'local/paths.txt'"
+      "test": "--http-probe=false --exec 'jq --version && cd /work/test/output-sample && docker build --rm .' --mount \"$PWD:/work\" --preserve-path-file 'local/paths.txt'"
     },
     "dockerSlimSize": {
       "test": "100M"

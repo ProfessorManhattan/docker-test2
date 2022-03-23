@@ -41,7 +41,7 @@
   </a>
 </div>
 
-> </br><h4 align="center">**A DIND Container for Testing with ContainerStructureTest and GitLab Runner**</h4></br>
+> </br><h4 align="center">**A Docker-in-Docker container for testing with ContainerStructureTest and GitLab Runner**</h4></br>
 
 <a href="#table-of-contents" style="width:100%"><img style="width:100%" src="https://gitlab.com/megabyte-labs/assets/-/raw/master/png/aqua-divider.png" /></a>
 
@@ -101,7 +101,7 @@ You can also add a bash alias to your `~/.bashrc` file so that you can run the p
 
 ```shell
 docker_command_alias() {
-    docker run -v ${PWD}:/work -w /work megabytelabs/docker-test:preferred_tag "$@"
+  docker run -v ${PWD}:/work -w /work megabytelabs/docker-test:preferred_tag "$@"
 }
 ```
 

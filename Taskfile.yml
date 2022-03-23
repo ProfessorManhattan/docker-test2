@@ -157,6 +157,13 @@ vars:
       elif type pnpm &> /dev/null; then
         echo 'pnpm '
       fi
+  NPX_PACKAGE:
+    sh: |
+      if type pnpx &> /dev/null; then
+        echo 'pnpx'
+      elif type pnpm &> /dev/null; then
+        echo 'pnpm'
+      fi
   PROJECT_TYPE:
     sh: |
       if type jq &> /dev/null && [ -f package.json ]; then VER="$(jq -r '.blueprint.group' package.json)"; if [ "$VER" == 'null' ]; then echo TYPE="$GROUP_TYPE"; else TYPE="$VER"; fi; else TYPE="$GROUP_TYPE"; fi
@@ -181,19 +188,10 @@ vars:
         echo 'poetry run '
       fi
   PYTHON_VIRTUALENV: true
-  REPOSITORY_SUBTYPE:
-    sh: if type jq &> /dev/null && [ -f package.json ]; then VER="$(jq -r .blueprint.subgroup package.json)"; if [ "$VER" == null ]; then echo "$REPOSITORY_TYPE"; else echo "$VER"; fi; else echo "$REPOSITORY_TYPE"; fi
-  REPOSITORY_TYPE:
-    sh: if type jq &> /dev/null && [ -f package.json ]; then VER="$(jq -r .blueprint.group package.json)"; if [ "$VER" == null ]; then echo "$GROUP_TYPE"; else echo "$VER"; fi; else echo "$GROUP_TYPE"; fi
+  REPOSITORY_SUBTYPE: ci-pipeline
+  REPOSITORY_TYPE: docker
   SEMANTIC_CONFIG: semantic-release-config
   TIMEZONE: America/New_York
-  NPX_PACKAGE:
-    sh: |-
-      if type pnpx &> /dev/null; then
-        echo 'pnpx'
-      elif type pnpm &> /dev/null; then
-        echo 'pnpm'
-      fi
   includes:
     common:start: ./.config/taskfiles/common/Taskfile-start.yml
 env:
@@ -207,10 +205,8 @@ env:
     sh: if [ -n "$CI" ]; then echo 'true'; fi
   SENTRY_DSN:
     sh: |
-      if type jq &> /dev/null; then
-        DSN="$(jq -r '.blueprint.sentryDSN' package.json)"
-        if [ "$DSN" != 'null' ]; then echo "$DSN"; fi
-      fi
+      DSN="$(jq -r '.blueprint.sentryDSN' package.json)"
+      if [ "$DSN" != 'null' ]; then echo "$DSN"; fi
 profile: |
   PATH="$PATH:$HOME/.local/bin:$HOME/.poetry/bin"
   if [[ "$OSTYPE" == 'linux-gnu'* ]] || [[ "$OSTYPE" == 'linux-musl'* ]]; then
@@ -736,7 +732,7 @@ tasks:
       start: Starting the project..
       success: Project started!
     cmds:
-      - task: common:start
+      - task: upstream:project
   synchronize:
     desc: Set up the project and refresh it with the latest changes
     summary: |

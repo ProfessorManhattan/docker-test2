@@ -21,8 +21,8 @@
 </div>
 <br/>
 <div align="center">
-  <a title="Version: 2.9.2" href="https://github.com/megabyte-labs/docker-test" target="_blank">
-    <img alt="Version: 2.9.2" src="https://img.shields.io/badge/version-2.9.2-blue.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAABlBMVEUAAAD///+l2Z/dAAAAAXRSTlMAQObYZgAAACNJREFUCNdjIACY//+BEp9hhM3hAzYQwoBIAqEDYQrCZLwAAGlFKxU1nF9cAAAAAElFTkSuQmCC&cacheSeconds=2592000&style=flat-square" />
+  <a title="Version: 2.9.3" href="https://github.com/megabyte-labs/docker-test" target="_blank">
+    <img alt="Version: 2.9.3" src="https://img.shields.io/badge/version-2.9.3-blue.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAABlBMVEUAAAD///+l2Z/dAAAAAXRSTlMAQObYZgAAACNJREFUCNdjIACY//+BEp9hhM3hAzYQwoBIAqEDYQrCZLwAAGlFKxU1nF9cAAAAAElFTkSuQmCC&cacheSeconds=2592000&style=flat-square" />
   </a>
   <a title="GitLab build status" href="https://gitlab.com/megabyte-labs/docker/ci-pipeline/docker-test/-/commits/master" target="_blank">
     <img alt="Build status" src="https://img.shields.io/gitlab/pipeline-status/megabyte-labs/docker/ci-pipeline/docker-test?branch=master&label=build&logo=gitlab&logoColor=white&style=flat-square">

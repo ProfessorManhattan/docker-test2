@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "@megabytelabs/docker-ci-docker-test",
-  "version": "2.9.2",
+  "version": "2.9.3",
   "description": "A Docker-in-Docker container for testing with ContainerStructureTest and GitLab Runner",
   "license": "MIT",
   "author": "Brian Zalewski <brian@megabyte.space> (https://megabyte.space)",
@@ -93,14 +93,14 @@
     "dockerBaseTag": "test",
     "dockerInDocker": "true",
     "dockerLatestSize": {
-      "test": "105M"
+      "test": ""
     },
     "dockerOutputCommand": "docker --version",
     "dockerSlimCommand": {
       "test": "--http-probe=false --exec 'jq --version && cd /work/test/output-sample && docker build --rm .' --mount \"$PWD:/work\" --preserve-path-file 'local/paths.txt'"
     },
     "dockerSlimSize": {
-      "test": "100M"
+      "test": ""
     },
     "github_id": "R_kgDOHDRXCA",
     "gitlab_group_id": "11679983",

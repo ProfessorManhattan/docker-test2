@@ -1,2 +1,0 @@
-/etc/ssl/certs
-/usr/local/bin

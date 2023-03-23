@@ -55,7 +55,7 @@
   </a>
 </div>
 
-> </br><h4 align="center">**A Docker-in-Docker container for testing with ContainerStructureTest and GitLab Runner**</h4></br>
+> <br/><h4 align="center">**A Docker-in-Docker container for testing with ContainerStructureTest and GitLab Runner**</h4><br/>
 
 <a href="#table-of-contents" style="width:100%"><img style="width:100%" src="https://gitlab.com/megabyte-labs/assets/-/raw/master/png/aqua-divider.png" /></a>
 
